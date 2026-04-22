@@ -3,14 +3,13 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-
-    public float sensitivity = 1.5f;
-    public float smoothing = 1.5f;
-
-    private float xMousePos;
-    private float smoothMousePos;
-
-    private float currentLookingPos;
+    public Transform player;
+    public float mouseSensitivity = 5f;
+    float cameraVerticalRotation = 0f;
+    bool lockedMouseCursor = true;
+    bool visibleCursor = false;
+    float topClamp = -90f;
+    float bottomClamp = 90f;
 
     void Start()
     {
@@ -20,25 +19,13 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        GetInput();
-        ModifyInput();
-        MovePlayer();
-    }
+        float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-    private void GetInput()
-    {
-        xMousePos = Input.GetAxisRaw("Mouse X");
-    }
+        cameraVerticalRotation -= inputY;
+        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, topClamp, bottomClamp);
+        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
 
-    private void ModifyInput()
-    {
-        xMousePos *= sensitivity * smoothing;
-        smoothMousePos = Mathf.Lerp(smoothMousePos, xMousePos, 1f / smoothing);
-    }
-
-    private void MovePlayer()
-    {
-        currentLookingPos += smoothMousePos;
-        transform.localRotation = Quaternion.AngleAxis(currentLookingPos, transform.up);
+        player.Rotate(Vector3.up * inputX);
     }
 }

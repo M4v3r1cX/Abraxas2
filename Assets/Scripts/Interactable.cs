@@ -14,7 +14,7 @@ public class Interactable : MonoBehaviour
             float distance = Vector3.Distance(player.position, transform.position);
             if (distance <= radius)
             {
-                Debug.Log("Interact!");
+                //Debug.Log("Interact!");
             }
         }
     }
@@ -28,6 +28,7 @@ public class Interactable : MonoBehaviour
 
     public void OnDefocused()
     {
+        Debug.Log("Defocused!");
         isFocus = false;
         player = null;
     }

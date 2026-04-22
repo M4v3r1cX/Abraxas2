@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float playerSpeed = 20f;
+    private Camera _cam;
+    public LayerMask movementMask;
     private CharacterController _charController;
     public Animator camAnim;
     private bool isWalking;
@@ -10,9 +11,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 inputVector;
     private Vector3 movementVector;
     private float myGravity = -10f;
+    public float playerSpeed = 20f;
+    private Interactable focus;
 
     void Start()
     {
+        _cam = Camera.main;
         _charController = GetComponent<CharacterController>();
     }
 
@@ -32,6 +36,54 @@ public class PlayerMovement : MonoBehaviour
         inputVector = transform.TransformDirection(inputVector);
 
         movementVector = (inputVector * playerSpeed) + (Vector3.up * myGravity);
+
+        // left maus
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Click");
+            Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    SetFocus(interactable);
+                }
+            }
+        }
+
+        // rite maus
+        if (Input.GetMouseButtonDown(1))
+        {
+            
+        }
+    }
+
+    void SetFocus(Interactable newFocus)
+    {
+        if (newFocus != focus)
+        {
+            if (focus != null)
+            {
+                focus.OnDefocused();    
+            }
+            
+            focus = newFocus;
+        }
+        
+        newFocus.OnFocused(transform);
+    }
+
+    void RemoveFocus()
+    {
+        if (focus != null)
+        {
+            focus.OnDefocused();    
+        }
+        
+        focus = null;
     }
 
     void MovePlayer()

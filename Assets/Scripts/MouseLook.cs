@@ -6,8 +6,6 @@ public class MouseLook : MonoBehaviour
     public Transform player;
     public float mouseSensitivity = 5f;
     float cameraVerticalRotation = 0f;
-    bool lockedMouseCursor = true;
-    bool visibleCursor = false;
     float topClamp = -90f;
     float bottomClamp = 90f;
 

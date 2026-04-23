@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
         // left maus
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Click");
             Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 

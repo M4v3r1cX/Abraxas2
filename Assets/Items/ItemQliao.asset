@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ItemQliao
   m_EditorClassIdentifier: Assembly-CSharp::Item
   name: ItemQliao
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7558367510aa3401e940571cdbbb30f1, type: 3}
   isDefaultItem: 0

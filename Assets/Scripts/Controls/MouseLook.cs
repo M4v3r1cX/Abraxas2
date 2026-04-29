@@ -9,14 +9,27 @@ public class MouseLook : MonoBehaviour
     float topClamp = -90f;
     float bottomClamp = 90f;
 
+    Inventory inventory;
+
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        inventory = Inventory.instance;
     }
 
     void Update()
     {
+        if (inventory.inventoryActive)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        } else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 

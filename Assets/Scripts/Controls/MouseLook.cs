@@ -9,16 +9,13 @@ public class MouseLook : MonoBehaviour
     float topClamp = -90f;
     float bottomClamp = 90f;
 
-    Inventory inventory;
-
     void Start()
     {
-        inventory = Inventory.instance;
     }
 
     void Update()
     {
-        if (inventory.inventoryActive)
+        if (Inventory.instance.inventoryActive)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

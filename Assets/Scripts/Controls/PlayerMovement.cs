@@ -13,18 +13,16 @@ public class PlayerMovement : MonoBehaviour
     private float myGravity = -10f;
     public float playerSpeed = 20f;
     private Interactable focus;
-    Inventory inventory;
 
     void Start()
     {
         _cam = Camera.main;
         _charController = GetComponent<CharacterController>();
-        inventory = Inventory.instance;
     }
 
     void Update()
     {
-        if (inventory.inventoryActive)
+        if (Inventory.instance.inventoryActive)
         {
             return;
         }
